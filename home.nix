@@ -42,7 +42,8 @@ in
   };
   programs.starship = {
     enable = true;
-    settings = lib.trivial.importTOML ./xdg/starship.toml;
+    # settings = lib.trivial.importTOML ./xdg/starship.toml;
+    settings = lib.trivial.importTOML ./xdg/starship-no-nerd-font.toml;
   };
 
   programs.direnv = {
