@@ -1,0 +1,56 @@
+{
+  description = "A simple NixOS flake";
+
+  inputs = {
+    # NixOS official package source, using the nixos-24.11 branch here
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Provides eachDefaultSystem and other utility functions
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
+    let
+      # All systems we may care about evaluating nixpkgs for
+      systems = with flake-utils.lib.system; [ x86_64-linux aarch64-linux aarch64-darwin x86_64-darwin ];
+      perSystem = (system: rec {
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [
+            ((import overlays/nixpkgs-unstable.nix) { inherit inputs; })
+          ];
+          config = {
+            allowUnfree = true;
+          };
+        };
+      });
+      # This `s` helper variable caches each system we care about in one spot.
+      # For example, you can access `s.x86_64-linux.whatever`.
+      inherit (flake-utils.lib.eachSystem systems (system: { s = perSystem system; })) s;
+    in
+    {
+      # Please replace `nixos` with your hostname
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        # extra arguments to pass to configuration.nix
+        specialArgs = {
+          inherit system; # equivalent to system = system;
+          hostname = "nixos";
+        };
+        modules = [
+          # Import the previous configuration.nix we used,
+          # so the old configuration file still takes effect
+          ./configuration.nix
+        ];
+      };
+    } // flake-utils.lib.eachSystem systems # the `//` operator merges the two sets
+      (system:
+        let
+          inherit (s.${system}) pkgs inputs;
+        in
+        {
+          # type `nix fmt` to autoformat your flake.
+          formatter = pkgs.nixpkgs-fmt;
+        }
+      );
+}
