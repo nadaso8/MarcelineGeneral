@@ -56,12 +56,23 @@
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.groups = {
+    plugdev = { };
+  };
   users.users.nadaso8 = {
     isNormalUser = true;
     description = "Marceline Sorensen";
-    extraGroups = [ "networkmanager" "wheel" ];
-    uid = 1001;
+    extraGroups = [
+      "networkmanager" # Gives rights to manage wifi networks etc
+      "wheel" # Gives sudo rights
+      "plugdev" # give usb access
+      "dialout" # give serial access (/dev/tty*)
+    ];
     packages = with pkgs; [ ];
+    openssh.authorizedKeys.keys = [
+      # Any ssh pubkeys that you want to give access to your account can go here
+      # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBLmHbuCMFpOKYvzMOpTOF+iMX9rrY6Y0naarcbWUV8G ryan@ryan-laptop"
+    ];
   };
 
   # Allow unfree packages
@@ -87,8 +98,26 @@
 
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  # This setups a SSH server for remote access.
+  services.openssh = {
+    enable = true;
+    settings = {
+      # Opinionated: forbid root login through SSH.
+      PermitRootLogin = "no";
+      # Opinionated: use keys only.
+      # Remove if you want to SSH using passwords
+      PasswordAuthentication = false;
+    };
+  };
+
+  # USB stuff
+  services.udev = {
+    enable = true;
+    # gives access to usb for all users in plugdev group
+    extraRules = ''
+      SUBSYSTEM=="usb", MODE="0660", GROUP="plugdev"
+    '';
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -103,5 +132,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }
