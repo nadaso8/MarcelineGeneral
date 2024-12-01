@@ -7,9 +7,14 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     # Provides eachDefaultSystem and other utility functions
     flake-utils.url = "github:numtide/flake-utils";
+    # Manages user settings
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
     let
       # All systems we may care about evaluating nixpkgs for
       systems = with flake-utils.lib.system; [ x86_64-linux aarch64-linux aarch64-darwin x86_64-darwin ];
@@ -41,6 +46,16 @@
           # Import the previous configuration.nix we used,
           # so the old configuration file still takes effect
           ./configuration.nix
+          # home-manager manages your dotfiles and user environment.
+          # https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nixos-module
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.nadaso8 = import ./home.nix;
+            # These are extra arguments passed to home.nix
+            home-manager.extraSpecialArgs = { username = "nadaso8"; };
+          }
         ];
       };
     } // flake-utils.lib.eachSystem systems # the `//` operator merges the two sets

@@ -62,6 +62,7 @@
   users.users.nadaso8 = {
     isNormalUser = true;
     description = "Marceline Sorensen";
+    shell = pkgs.zsh;
     extraGroups = [
       "networkmanager" # Gives rights to manage wifi networks etc
       "wheel" # Gives sudo rights
