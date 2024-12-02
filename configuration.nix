@@ -92,7 +92,6 @@
     packages = with pkgs; [ ];
     openssh.authorizedKeys.keys = [
       # Any ssh pubkeys that you want to give access to your account can go here
-      # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBLmHbuCMFpOKYvzMOpTOF+iMX9rrY6Y0naarcbWUV8G ryan@ryan-laptop"
     ];
   };
 
