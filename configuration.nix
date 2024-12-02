@@ -26,8 +26,7 @@
     driSupport = true;
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
-
+  # Nvidia Drivers
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;
@@ -37,7 +36,17 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  hardware.nvidia.prime = {
+    sync.enable = true;
+    amdgpuBusId = "PCI:0:4:0";
+    nvidiaBusId = "PCI:0:1:0";
+  };
+  
+  # AMD Drivers
+  boot.initrd.kernelModules = ["amdgpu"];
+
   services.xserver.enable = true;
+  services.xserver.videoDrivers = ["nvidia"];
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
