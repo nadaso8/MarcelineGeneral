@@ -37,9 +37,12 @@
   };
 
   hardware.nvidia.prime = {
-    sync.enable = true;
-    amdgpuBusId = "PCI:0:4:0";
-    nvidiaBusId = "PCI:0:1:0";
+    offload = {
+      enable = true;
+      enableOffloadCmd = true;
+    };
+    amdgpuBusId = "PCI:4:0:0";
+    nvidiaBusId = "PCI:1:0:0";
   };
   
   # AMD Drivers
@@ -112,6 +115,7 @@
   environment.systemPackages = with pkgs; [
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
+    firefox
     git
     lshw
     neovim
