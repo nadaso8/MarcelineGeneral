@@ -111,7 +111,9 @@
       "dialout" # give serial access (/dev/tty*)
     ];
     packages = with pkgs; [ 
+      rustup
       discord-ptb
+      obsidian
       pitivi
     ];
     openssh.authorizedKeys.keys = [
@@ -131,7 +133,7 @@
     git
     lshw
     neovim
-    obsidian
+    vscode
   ];
 
   # Add Steam 
