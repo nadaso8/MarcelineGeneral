@@ -21,9 +21,9 @@
   # Add NTFS
   boot.supportedFilesystems = [ "ntfs" ];
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
+    
   };
 
   # Nvidia Drivers
@@ -54,7 +54,6 @@
   services.desktopManager.plasma6.enable = true;
 
   # Pipewire
-  sound.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -92,8 +91,8 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb.layout = "us";
+    xkb.variant = "";
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -111,7 +110,6 @@
       "dialout" # give serial access (/dev/tty*)
     ];
     packages = with pkgs; [ 
-      rustup
       discord-ptb
       obsidian
       pitivi
@@ -127,16 +125,23 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
+    # Web
     firefox
+
+    # General Development
     git
     lshw
+
+    # IDE
     neovim
     vscode
+
+    # Compilers 
+    rustup
+    gcc
   ];
 
-  # Add Steam 
+  # Steam 
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
