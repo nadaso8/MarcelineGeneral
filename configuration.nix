@@ -21,9 +21,19 @@
   # Add NTFS
   boot.supportedFilesystems = [ "ntfs" ];
 
+  # Fingerprint Reader
+  # services.fprintd.enable = true;
+
+
+
+
+
+
+
+
+
   hardware.graphics = {
     enable = true;
-    
   };
 
   # Nvidia Drivers
@@ -44,16 +54,17 @@
     amdgpuBusId = "PCI:4:0:0";
     nvidiaBusId = "PCI:1:0:0";
   };
-  
-  # AMD Drivers
-  boot.initrd.kernelModules = ["amdgpu"];
 
+  # AMD Drivers
+  boot.initrd.kernelModules = [ "amdgpu" ];
+
+  # Desktop
   services.xserver.enable = true;
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  # Pipewire
+  # Audio
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -109,8 +120,9 @@
       "plugdev" # give usb access
       "dialout" # give serial access (/dev/tty*)
     ];
-    packages = with pkgs; [ 
-      discord-ptb
+    packages = with pkgs; [
+      discord
+      vesktop
       obsidian
       pitivi
     ];
@@ -136,9 +148,7 @@
     neovim
     vscode
 
-    # Compilers 
-    rustup
-    gcc
+
   ];
 
   # Steam 
