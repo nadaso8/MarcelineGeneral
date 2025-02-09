@@ -21,19 +21,25 @@
   # Add NTFS
   boot.supportedFilesystems = [ "ntfs" ];
 
-  # Fingerprint Reader
-  # services.fprintd.enable = true;
+  # Add Swap
+  swapDevices = [{
+    device = "/var/lib/swapfile";
+    size = 32 * 1024;
+  }];
 
-
-
-
-
-
-
-
+  # Enable fingerprint reader
+  services.fprintd = {
+    enable = true;
+    package = pkgs.fprintd-tod;
+    tod = {
+      enable = true;
+      driver = pkgs.libfprint-2-tod1-goodix;
+    };
+  };
 
   hardware.graphics = {
     enable = true;
+    enable32Bit = true;
   };
 
   # Nvidia Drivers
@@ -125,6 +131,8 @@
       vesktop
       obsidian
       pitivi
+      mixxx
+      ollama-cuda
     ];
     openssh.authorizedKeys.keys = [
       # Any ssh pubkeys that you want to give access to your account can go here
@@ -146,9 +154,16 @@
 
     # IDE
     neovim
-    vscode
+    # vscode
 
-
+    (vscode-with-extensions.override {
+      vscodeExtensions = with vscode-extensions; [
+        vscode-extensions.ms-vscode.cpptools
+        vscode-extensions.bbenoist.nix
+        vscode-extensions.rust-lang.rust-analyzer
+	vscode-extensions.tamasfe.even-better-toml
+      ];
+    })
   ];
 
   # Steam 
@@ -157,6 +172,14 @@
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
+
+  # Sunshine 
+  services.sunshine = {
+    enable = true;
+    autoStart = false;
+    capSysAdmin = true;
+    openFirewall = true;
   };
 
   # Some programs need SUID wrappers, can be configured further or are
