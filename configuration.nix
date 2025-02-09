@@ -27,16 +27,6 @@
     size = 32 * 1024;
   }];
 
-  # Enable fingerprint reader
-  services.fprintd = {
-    enable = true;
-    package = pkgs.fprintd-tod;
-    tod = {
-      enable = true;
-      driver = pkgs.libfprint-2-tod1-goodix;
-    };
-  };
-
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -161,7 +151,7 @@
         vscode-extensions.ms-vscode.cpptools
         vscode-extensions.bbenoist.nix
         vscode-extensions.rust-lang.rust-analyzer
-	vscode-extensions.tamasfe.even-better-toml
+        vscode-extensions.tamasfe.even-better-toml
       ];
     })
   ];
