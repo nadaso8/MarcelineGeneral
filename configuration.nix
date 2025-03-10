@@ -56,7 +56,7 @@
 
   # Desktop
   services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "modesetting" "nvidia" ];
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
@@ -122,7 +122,7 @@
       obsidian
       pitivi
       mixxx
-      ollama-cuda
+      mods
     ];
     openssh.authorizedKeys.keys = [
       # Any ssh pubkeys that you want to give access to your account can go here
@@ -171,6 +171,13 @@
     capSysAdmin = true;
     openFirewall = true;
   };
+
+  # Ollama
+   services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+    loadModels = ["deepseek-r1:7b"];
+   };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
