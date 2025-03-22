@@ -117,11 +117,22 @@
       "dialout" # give serial access (/dev/tty*)
     ];
     packages = with pkgs; [
+      # chat
       discord
       vesktop
+
+      # word processing 
       obsidian
+
+      # image editing
+      krita
+      inkscape
+      
+      # A/V toolchain
       pitivi
       mixxx
+
+      # LLM frontend
       mods
     ];
     openssh.authorizedKeys.keys = [
