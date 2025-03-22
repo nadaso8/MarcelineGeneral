@@ -68,11 +68,6 @@
     pulse.enable = true;
   };
 
-  # Fingerprint Reader
-  services.fprintd = {
-  	enable = true;
-  };
-
   networking.hostName = hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -132,7 +127,7 @@
       # image editing
       krita
       inkscape
-      
+
       # A/V toolchain
       pitivi
       mixxx
@@ -156,7 +151,10 @@
 
     # General Development
     git
+
+    # System Utilities
     lshw
+    usbutils
 
     # IDE
     neovim
@@ -187,11 +185,11 @@
   };
 
   # Ollama
-   services.ollama = {
+  services.ollama = {
     enable = true;
     acceleration = "cuda";
-    loadModels = ["deepseek-r1:7b"];
-   };
+    loadModels = [ "deepseek-r1:7b" ];
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
