@@ -68,6 +68,11 @@
     pulse.enable = true;
   };
 
+  # Fingerprint Reader
+  services.fprintd = {
+  	enable = true;
+  };
+
   networking.hostName = hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -155,8 +160,6 @@
 
     # IDE
     neovim
-    # vscode
-
     (vscode-with-extensions.override {
       vscodeExtensions = with vscode-extensions; [
         vscode-extensions.ms-vscode.cpptools
