@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, hostname, system, ... }:
+{ config, pkgs, hostname, system, inputs, ... }:
 
 {
   imports =
@@ -60,6 +60,13 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  # Tiling Window Manager
+  programs.niri.enable = true;
+  # Fix X11 apps in Niri
+  programs.xwayland.enable = true;
+  # Fix Electron apps in Niri
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # Audio
   security.rtkit.enable = true;
   services.pipewire = {
@@ -77,6 +84,34 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.wireless.secretsFile = "/run/secrets/wireless.conf";
+  networking.wireless.networks = {
+    "In-flight WiFi" = {
+      pskRaw = "ext:psk_allie";
+    };
+    "Nadaso8" = {
+      pskRaw = "ext:psk_home";
+    };
+    "Le Corbusier" = {
+      pskRaw = "ext:psk_phone";
+    };
+  };
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+  # Enable printing
+  services.printing = {
+    enable = true;
+  };
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -119,9 +154,8 @@
     packages = with pkgs; [
       # chat
       discord
-      vesktop
 
-      # word processing 
+      # notes/word processing 
       obsidian
 
       # image editing
@@ -131,9 +165,6 @@
       # A/V toolchain
       pitivi
       mixxx
-
-      # LLM frontend
-      mods
     ];
     openssh.authorizedKeys.keys = [
       # Any ssh pubkeys that you want to give access to your account can go here
@@ -146,6 +177,18 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+
+    # Desktop Utils
+    anyrun
+    swaylock
+    swww
+    mako
+    waybar
+    xwayland-satellite
+
+    # Terminal Emulators
+    alacritty
+
     # Web
     firefox
 
@@ -158,6 +201,7 @@
 
     # IDE
     neovim
+    helix
     (vscode-with-extensions.override {
       vscodeExtensions = with vscode-extensions; [
         vscode-extensions.ms-vscode.cpptools
@@ -182,13 +226,6 @@
     autoStart = false;
     capSysAdmin = true;
     openFirewall = true;
-  };
-
-  # Ollama
-  services.ollama = {
-    enable = true;
-    acceleration = "cuda";
-    loadModels = [ "deepseek-r1:7b" ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are

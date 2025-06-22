@@ -7,7 +7,7 @@ in
   home = {
     username = "${username}";
     homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
-    packages = [ ];
+    packages = [ (pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" "DroidSansMono" ]; }) ];
     sessionVariables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
