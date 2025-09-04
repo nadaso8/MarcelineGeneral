@@ -35,17 +35,40 @@
     in
     {
       # Please replace `nixos` with your hostname
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem rec {
+      nixosConfigurations."Ainsworth" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         # extra arguments to pass to configuration.nix
         specialArgs = {
           inherit system; # equivalent to system = system;
-          hostname = "nixos";
+          hostname = "Ainsworth";
         };
         modules = [
           # Import the previous configuration.nix we used,
           # so the old configuration file still takes effect
-          ./configuration.nix
+          ./Ainsworth/configuration.nix
+          # home-manager manages your dotfiles and user environment.
+          # https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nixos-module
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.nadaso8 = import ./home.nix;
+            # These are extra arguments passed to home.nix
+            home-manager.extraSpecialArgs = { username = "nadaso8"; };
+          }
+        ];
+      };
+      nixosConfigurations."Sebastian" = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        # extra arguments to pass to configuration.nix
+        specialArgs = {
+          inherit system; # equivalent to system = system;
+          hostname = "Sebastian";
+        };
+        modules = [
+          # Import the previous configuration.nix we used,
+          # so the old configuration file still takes effect
+          ./Sebastian/configuration.nix
           # home-manager manages your dotfiles and user environment.
           # https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nixos-module
           home-manager.nixosModules.home-manager
