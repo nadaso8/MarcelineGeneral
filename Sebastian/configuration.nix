@@ -32,67 +32,6 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.groups = {
-    plugdev = { };
-  };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-
-    # Desktop Utils
-    anyrun
-    swaylock
-    swww
-    mako
-    waybar
-    xwayland-satellite
-
-    # Terminal Emulators
-    alacritty
-
-    # Web
-    firefox
-
-    # General Development
-    git
-
-    # System Utilities
-    lshw
-    usbutils
-
-    # IDE
-    neovim
-    helix
-    (vscode-with-extensions.override {
-      vscodeExtensions = with vscode-extensions; [
-        vscode-extensions.ms-vscode.cpptools
-        vscode-extensions.bbenoist.nix
-        vscode-extensions.rust-lang.rust-analyzer
-        vscode-extensions.tamasfe.even-better-toml
-      ];
-    })
-  ];
-
-  # Steam 
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };
-
-  # Sunshine 
-  services.sunshine = {
-    enable = true;
-    autoStart = false;
-    capSysAdmin = true;
-    openFirewall = true;
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -115,20 +54,6 @@
       PasswordAuthentication = false;
     };
   };
-
-  # USB stuff
-  services.udev = {
-    enable = true;
-    # gives access to usb for all users in plugdev group
-    extraRules = ''
-      SUBSYSTEM=="usb", MODE="0660", GROUP="plugdev"
-    '';
-  };
-
-  programs.zsh.enable = true;
-  # Better compatibility with non-nixos programs:
-  # https://github.com/nix-community/nix-ld
-  programs.nix-ld.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
