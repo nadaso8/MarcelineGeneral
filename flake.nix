@@ -46,6 +46,8 @@
           # Import the previous configuration.nix we used,
           # so the old configuration file still takes effect
           ./Ainsworth/configuration.nix
+          ./base.nix
+          ./nadaso8.nix
           # home-manager manages your dotfiles and user environment.
           # https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nixos-module
           home-manager.nixosModules.home-manager
@@ -69,6 +71,8 @@
           # Import the previous configuration.nix we used,
           # so the old configuration file still takes effect
           ./Sebastian/configuration.nix
+          ./base.nix
+          ./nadaso8.nix
           # home-manager manages your dotfiles and user environment.
           # https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nixos-module
           home-manager.nixosModules.home-manager

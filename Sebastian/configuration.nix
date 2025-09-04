@@ -11,16 +11,6 @@
       ./hardware-configuration.nix
     ];
 
-  # Features
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # Add NTFS
-  boot.supportedFilesystems = [ "ntfs" ];
-
   # Add Swap
   swapDevices = [{
     device = "/var/lib/swapfile";
@@ -36,127 +26,15 @@
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;
-    powerManagement.finegrained = false; 
+    powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Desktop
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  # Tiling Window Manager
-  programs.niri.enable = true;
-  # Fix X11 apps in Niri
-  programs.xwayland.enable = true;
-  # Fix Electron apps in Niri
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  # Audio
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-  };
-
-  networking.hostName = hostname; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-  networking.wireless.secretsFile = "/run/secrets/wireless.conf";
-  networking.wireless.networks = {
-    "In-flight WiFi" = {
-      pskRaw = "ext:psk_allie";
-    };
-    "Nadaso8" = {
-      pskRaw = "ext:psk_home";
-    };
-    "Le Corbusier" = {
-      pskRaw = "ext:psk_phone";
-    };
-  };
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-  };
-
-  # Enable printing
-  services.printing = {
-    enable = true;
-  };
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
-
-
-
-  # Set your time zone.
-  time.timeZone = "America/Chicago";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
-
-  # Configure keymap in X11
-  services.xserver = {
-    xkb.layout = "us";
-    xkb.variant = "";
-  };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.groups = {
     plugdev = { };
-  };
-  users.users.nadaso8 = {
-    isNormalUser = true;
-    description = "Marceline Sorensen";
-    shell = pkgs.zsh;
-    extraGroups = [
-      "networkmanager" # Gives rights to manage wifi networks etc
-      "wheel" # Gives sudo rights
-      "plugdev" # give usb access
-      "dialout" # give serial access (/dev/tty*)
-    ];
-    packages = with pkgs; [
-      # chat
-      discord
-
-      # notes/word processing 
-      obsidian
-
-      # image editing
-      krita
-      inkscape
-
-      # A/V toolchain
-      pitivi
-      mixxx
-    ];
-    openssh.authorizedKeys.keys = [
-      # Any ssh pubkeys that you want to give access to your account can go here
-    ];
   };
 
   # Allow unfree packages
