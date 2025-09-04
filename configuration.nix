@@ -84,18 +84,6 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.wireless.secretsFile = "/run/secrets/wireless.conf";
-  networking.wireless.networks = {
-    "In-flight WiFi" = {
-      pskRaw = "ext:psk_allie";
-    };
-    "Nadaso8" = {
-      pskRaw = "ext:psk_home";
-    };
-    "Le Corbusier" = {
-      pskRaw = "ext:psk_phone";
-    };
-  };
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -157,6 +145,8 @@
 
       # notes/word processing 
       obsidian
+      typst
+      typstfmt
 
       # image editing
       krita
@@ -180,6 +170,7 @@
 
     # Desktop Utils
     anyrun
+    brightnessctl
     swaylock
     swww
     mako
@@ -198,16 +189,21 @@
     # System Utilities
     lshw
     usbutils
+    bottom
 
     # IDE
     neovim
     helix
+    lldb
     (vscode-with-extensions.override {
       vscodeExtensions = with vscode-extensions; [
+        # debuggers
         vscode-extensions.ms-vscode.cpptools
+        vscode-extensions.vadimcn.vscode-lldb
         vscode-extensions.bbenoist.nix
         vscode-extensions.rust-lang.rust-analyzer
         vscode-extensions.tamasfe.even-better-toml
+	vscode-extensions.myriad-dreamin.tinymist
       ];
     })
   ];
