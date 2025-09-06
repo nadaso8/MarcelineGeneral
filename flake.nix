@@ -12,6 +12,12 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    niri-flake = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixos-unstable";
+      inputs.nixpkgs-stable.follows = "nixos-25_05";
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
@@ -48,6 +54,7 @@
           ./Ainsworth/configuration.nix
           ./base.nix
           ./nadaso8.nix
+          ./niri.nix
           # home-manager manages your dotfiles and user environment.
           # https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nixos-module
           home-manager.nixosModules.home-manager
@@ -73,6 +80,7 @@
           ./Sebastian/configuration.nix
           ./base.nix
           ./nadaso8.nix
+          ./niri.nix
           # home-manager manages your dotfiles and user environment.
           # https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nixos-module
           home-manager.nixosModules.home-manager

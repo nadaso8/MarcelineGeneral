@@ -18,34 +18,14 @@
     alsa.enable = true;
     pulse.enable = true;
   };
-
-  networking.hostName = hostname; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
+  
   # Enable networking
+  networking.hostName = hostname;
   networking.networkmanager.enable = true;
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
   };
-
-  # Desktop
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  # Tiling Window Manager
-  programs.niri.enable = true;
-  # Fix X11 apps in Niri
-  programs.xwayland.enable = true;
-  # Fix Electron apps in Niri
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
 
   # Enable printing
   services.printing = {

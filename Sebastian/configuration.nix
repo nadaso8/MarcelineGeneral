@@ -31,6 +31,8 @@
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+  
+  services.xserver.videoDrivers = [ "nvidia" ];
 
 
   # Some programs need SUID wrappers, can be configured further or are
