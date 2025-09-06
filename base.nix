@@ -85,7 +85,7 @@
 
   environment.systemPackages = with pkgs; [
 
-    # Desktop Utils
+    # Desktop Utils TODO: break this out into niri.nix? 
     anyrun
     swaylock
     swww
