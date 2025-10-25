@@ -12,12 +12,6 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    niri-flake = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixos-unstable";
-      inputs.nixpkgs-stable.follows = "nixos-25_05";
-    };
   };
 
   outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
