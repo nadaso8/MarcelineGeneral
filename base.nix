@@ -98,6 +98,7 @@
 
     # Web Browsers
     firefox
+    google-chrome
 
     # Version Controll
     git
