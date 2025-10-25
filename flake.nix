@@ -22,7 +22,7 @@
         pkgs = import inputs.nixpkgs {
           inherit system;
           overlays = [
-            ((import overlays/nixpkgs-unstable.nix) { inherit inputs; })
+            ((import ./overlays/nixpkgs-unstable.nix) { inherit inputs; })
           ];
           config = {
             allowUnfree = true;
