@@ -12,21 +12,25 @@
       "dialout" # give serial access (/dev/tty*)
     ];
     packages = with pkgs; [
-      # chat
+      # Chat
       discord
+      signal-desktop
 
-      # notes/word processing 
+      # Word processing 
       obsidian
       typst
       typstfmt
 
-      # image editing
+      # Image editing
       krita
       inkscape
 
       # A/V toolchain
       pitivi
       mixxx
+
+      # Accounting
+      gnucash
 
       # IDE
       lldb
