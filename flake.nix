@@ -33,12 +33,12 @@
       # For example, you can access `s.x86_64-linux.whatever`.
       inherit (flake-utils.lib.eachSystem systems (system: { s = perSystem system; })) s;
 
-      nixosConfig = {system, username, hostname, modulePath, homeManagerCfg? ./home.nix}:(
-        let 
+      nixosConfig = { system, username, hostname, modulePath, homeManagerCfg ? ./home.nix }: (
+        let
           pkgs = s.${system}.pkgs;
-        in 
+        in
         inputs.nixpkgs.lib.nixosSystem rec{
-          specialArgs = {inherit system username hostname inputs;};
+          specialArgs = { inherit system username hostname inputs; };
           modules = [
             {
               nixpkgs = {
@@ -67,14 +67,14 @@
     in
     {
 
-      nixosConfigurations."Ainsworth" = nixosConfig{
+      nixosConfigurations."Ainsworth" = nixosConfig {
         system = "x86_64-linux";
         username = "nadaso8";
         hostname = "Ainsworth";
         modulePath = ./Ainsworth/configuration.nix;
       };
 
-      nixosConfigurations."Sebastian" = nixosConfig{
+      nixosConfigurations."Sebastian" = nixosConfig {
         system = "x86_64-linux";
         username = "nadaso8";
         hostname = "Sebastian";

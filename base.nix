@@ -18,7 +18,7 @@
     alsa.enable = true;
     pulse.enable = true;
   };
-  
+
   # Enable networking
   networking.hostName = hostname;
   networking.networkmanager.enable = true;

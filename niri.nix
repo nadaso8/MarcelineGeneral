@@ -1,4 +1,4 @@
-{ config, pkgs, hostname, inputs, ... } : {
+{ config, pkgs, hostname, inputs, ... }: {
   services.xserver.enable = true;
   programs.xwayland.enable = true;
   services.displayManager.sddm.enable = true;
