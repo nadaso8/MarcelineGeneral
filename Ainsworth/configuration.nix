@@ -51,7 +51,6 @@
 
   environment.systemPackages = with pkgs; [
     brightnessctl
-    #unstable.omnissa-horizon-client
   ];
 
   # This setups a SSH server for remote access.
