@@ -9,6 +9,9 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../base.nix
+      ../nadaso8.nix
+      ../niri.nix
     ];
 
   # Add Swap
@@ -48,6 +51,7 @@
 
   environment.systemPackages = with pkgs; [
     brightnessctl
+    #unstable.omnissa-horizon-client
   ];
 
   # This setups a SSH server for remote access.
