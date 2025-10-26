@@ -32,60 +32,53 @@
       # This `s` helper variable caches each system we care about in one spot.
       # For example, you can access `s.x86_64-linux.whatever`.
       inherit (flake-utils.lib.eachSystem systems (system: { s = perSystem system; })) s;
+
+      nixosConfig = {system, username, hostname, modulePath, homeManagerCfg? ./home.nix}:(
+        let 
+          pkgs = s.${system}.pkgs;
+        in 
+        inputs.nixpkgs.lib.nixosSystem rec{
+          specialArgs = {inherit system username hostname inputs;};
+          modules = [
+            {
+              nixpkgs = {
+                inherit pkgs;
+              };
+            }
+
+            modulePath
+
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                # include the home-manager module
+                users.${username} = import homeManagerCfg;
+                extraSpecialArgs = {
+                  inherit username;
+                };
+              };
+            }
+          ];
+        }
+      );
+
     in
     {
-      # Please replace `nixos` with your hostname
-      nixosConfigurations."Ainsworth" = nixpkgs.lib.nixosSystem rec {
+
+      nixosConfigurations."Ainsworth" = nixosConfig{
         system = "x86_64-linux";
-        # extra arguments to pass to configuration.nix
-        specialArgs = {
-          inherit system; # equivalent to system = system;
-          hostname = "Ainsworth";
-        };
-        modules = [
-          # Import the previous configuration.nix we used,
-          # so the old configuration file still takes effect
-          ./Ainsworth/configuration.nix
-          ./base.nix
-          ./nadaso8.nix
-          ./niri.nix
-          # home-manager manages your dotfiles and user environment.
-          # https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nixos-module
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.nadaso8 = import ./home.nix;
-            # These are extra arguments passed to home.nix
-            home-manager.extraSpecialArgs = { username = "nadaso8"; };
-          }
-        ];
+        username = "nadaso8";
+        hostname = "Ainsworth";
+        modulePath = ./Ainsworth/configuration.nix;
       };
-      nixosConfigurations."Sebastian" = nixpkgs.lib.nixosSystem rec {
+
+      nixosConfigurations."Sebastian" = nixosConfig{
         system = "x86_64-linux";
-        # extra arguments to pass to configuration.nix
-        specialArgs = {
-          inherit system; # equivalent to system = system;
-          hostname = "Sebastian";
-        };
-        modules = [
-          # Import the previous configuration.nix we used,
-          # so the old configuration file still takes effect
-          ./Sebastian/configuration.nix
-          ./base.nix
-          ./nadaso8.nix
-          ./niri.nix
-          # home-manager manages your dotfiles and user environment.
-          # https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nixos-module
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.nadaso8 = import ./home.nix;
-            # These are extra arguments passed to home.nix
-            home-manager.extraSpecialArgs = { username = "nadaso8"; };
-          }
-        ];
+        username = "nadaso8";
+        hostname = "Sebastian";
+        modulePath = ./Sebastian/configuration.nix;
       };
     } // flake-utils.lib.eachSystem systems # the `//` operator merges the two sets
       (system:

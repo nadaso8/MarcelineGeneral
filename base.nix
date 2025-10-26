@@ -80,9 +80,6 @@
   # https://github.com/nix-community/nix-ld
   programs.nix-ld.enable = true;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   environment.systemPackages = with pkgs; [
 
     # Desktop Utils TODO: break this out into niri.nix? 
