@@ -45,6 +45,7 @@
           vscode-extensions.myriad-dreamin.tinymist
         ];
       })
+      jetbrains.idea-community-src
     ];
     openssh.authorizedKeys.keys = [
       # Any ssh pubkeys that you want to give access to your account can go here
