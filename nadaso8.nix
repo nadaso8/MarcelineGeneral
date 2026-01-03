@@ -46,6 +46,9 @@
         ];
       })
       jetbrains.idea-community-src
+
+      # Minecraft
+      prismlauncher
     ];
     openssh.authorizedKeys.keys = [
       # Any ssh pubkeys that you want to give access to your account can go here
