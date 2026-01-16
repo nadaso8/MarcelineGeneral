@@ -12,6 +12,7 @@
       ../base.nix
       ../nadaso8.nix
       ../niri.nix
+      ../bluetooth.nix
     ];
 
   # Add Swap
