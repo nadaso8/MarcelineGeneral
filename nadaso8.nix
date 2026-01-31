@@ -19,7 +19,7 @@
       # Word processing 
       obsidian
       typst
-      typstfmt
+      typstyle
 
       # Image editing
       krita
@@ -32,6 +32,9 @@
       # Accounting
       gnucash
 
+      # Computing
+      cbqn
+      
       # IDE
       lldb
       (vscode-with-extensions.override {
