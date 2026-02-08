@@ -16,6 +16,9 @@
       discord
       signal-desktop
 
+      # Study
+      anki
+
       # Word processing 
       obsidian
       typst
@@ -48,7 +51,7 @@
           vscode-extensions.myriad-dreamin.tinymist
         ];
       })
-      jetbrains.idea-community-src
+      jetbrains.idea-oss
 
       # Minecraft
       prismlauncher

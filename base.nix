@@ -59,7 +59,7 @@
   services.xserver.xkb = {
     layout = "us,bqn";
     variant = "";
-    options = "caps_switch";
+    options = "grp:caps_switch";
   };
 
   # Create plugdev group
