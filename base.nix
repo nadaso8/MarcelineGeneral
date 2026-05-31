@@ -86,7 +86,7 @@
     # Desktop Utils TODO: break this out into niri.nix? 
     anyrun
     swaylock
-    swww
+    awww
     mako
     waybar
     xwayland-satellite

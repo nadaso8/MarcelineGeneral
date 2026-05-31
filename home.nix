@@ -22,10 +22,12 @@ in
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
-    userName = "nadaso8";
-    userEmail = "nadaso8@gmail.com";
+    settings.user = { 
+      name = "nadaso8";
+      email = "nadaso8@gmail.com";
+    };
     lfs.enable = true;
-    extraConfig = {
+    settings = {
       rebase = {
         updateRefs = true;
       };
@@ -80,5 +82,5 @@ in
   # };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "24.05";
+  home.stateVersion = "26.05";
 }
