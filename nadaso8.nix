@@ -51,7 +51,6 @@
           vscode-extensions.myriad-dreamin.tinymist
         ];
       })
-      jetbrains.idea-oss
 
       # Minecraft
       prismlauncher
@@ -67,14 +66,6 @@
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };
-
-  # Sunshine 
-  services.sunshine = {
-    enable = true;
-    autoStart = false;
-    capSysAdmin = true;
-    openFirewall = true;
   };
 
 }
