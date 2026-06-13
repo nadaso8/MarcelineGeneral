@@ -6,5 +6,5 @@
   #include plasma 6 as a fallback for when applications don't play nicely with niri.
   services.desktopManager.plasma6.enable = true;
 
-  environment.sessionVariables.NIRI_CONFIG = "~/MarcelineGeneral/.config/niri/config.kdl"
+  environment.sessionVariables.NIRI_CONFIG = "~/MarcelineGeneral/.config/niri/config.kdl";
 }
