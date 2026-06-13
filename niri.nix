@@ -3,9 +3,8 @@
   programs.xwayland.enable = true;
   services.displayManager.sddm.enable = true;
   programs.niri.enable = true;
+  #include plasma 6 as a fallback for when applications don't play nicely with niri.
   services.desktopManager.plasma6.enable = true;
 
-
-  # Fix Electron apps in Niri
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables.NIRI_CONFIG = "~/MarcelineGeneral/.config/niri/config.kdl"
 }

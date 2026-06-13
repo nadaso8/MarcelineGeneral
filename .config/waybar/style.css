@@ -1,0 +1,126 @@
+* {
+    font-size: 14px;
+    border-radius: 12px;
+}
+
+window#waybar {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: Nerd-font, monospace;
+    background-color: transparent;
+    border-bottom: 0px;
+    color: #4a5859;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+window#waybar.empty #window {
+    background-color: transparent;
+}
+
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
+.modules-right {
+    margin: 12px 12px 0 0;
+    padding: 4px 0 0 0;
+}
+.modules-center {
+    margin: 12px 0 0 0;
+    padding: 4px 0 0 0;
+}
+.modules-left {
+    margin: 12px 0 0 12px;
+    padding: 0 0 0 4px;
+}
+
+#wireplumber,
+#mpris,
+#network,
+#bluetooth,
+#tray,
+#clock,
+#battery,
+#backlight,
+#load {
+    padding: 0 12px;
+    background-color: #4a5859;
+    color: #fcfcfc;
+}
+
+#mode {
+    background-color: #4a5859;
+    color: #fcfcfc;
+    /* box-shadow: inset 0 -3px #ffffff; */
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#battery.charging, #battery.plugged {
+    background-color: #4a5859;
+    color: #fcfcfc;
+}
+
+@keyframes blink {
+    to {
+        background-color: #b80c09;
+        color: #32373b;
+    }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    background-color: #b80c09;
+    color: #fcfcfc;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+#wireplumber.muted {
+    background-color: #b80c09;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+#mpris.playing {
+    background-color: #4a5859;
+    color: #fcfcfc;
+}
+
+#tray menu {
+    font-family: sans-serif;
+}
+
+#scratchpad.empty {
+    background: transparent;
+}
