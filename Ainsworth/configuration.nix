@@ -50,6 +50,11 @@
   # AMD Drivers
   boot.initrd.kernelModules = [ "amdgpu" ];
 
+  environment.sessionVariables = {
+    WAYBAR_CONFIG = "/home/nadaso8/MarcelineGeneral/.config/waybar";
+    MAKO_CONFIG = "/home/nadaso8/MarcelineGeneral/.config/mako";
+  };
+
   environment.systemPackages = with pkgs; [
     brightnessctl
   ];

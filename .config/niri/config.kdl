@@ -212,13 +212,13 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 // spawn-at-startup "alacritty" "-e" "fish"
-spawn-at-startup "waybar -c ~/MarcelineGeneral/.config/waybar/config.jsonc -s ~/MarcelineGeneral/.config/waybar/style.css"
+spawn-sh-at-startup "waybar -c $WAYBAR_CONFIG/config.jsonc -s $WAYBAR_CONFIG/style.css"
 spawn-at-startup "awww-daemon"
 layer-rule {
     match namespace="awww-daemon"
     place-within-backdrop true
 }
-spawn-at-startup "mako -c ~/MarcelineGeneral/.config/mako/config"
+spawn-sh-at-startup "mako -c $MAKO_CONFIG/config"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.

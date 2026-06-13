@@ -37,6 +37,11 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  environment.sessionVariables = {
+    WAYBAR_CONFIG = "/home/nadaso8/MarcelineGeneral/.config/waybar";
+    MAKO_CONFIG = "/home/nadaso8/MarcelineGeneral/.config/mako";
+  };
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
