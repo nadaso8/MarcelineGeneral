@@ -6,10 +6,11 @@
     description = "Marceline Sorensen";
     shell = pkgs.zsh;
     extraGroups = [
-      "networkmanager" # Gives rights to manage wifi networks etc
-      "wheel" # Gives sudo rights
-      "plugdev" # give usb access
-      "dialout" # give serial access (/dev/tty*)
+      "networkmanager"  # Gives rights to manage wifi networks etc
+      "wheel"           # Gives sudo rights
+      "plugdev"         # Give usb access
+      "dialout"         # Give serial access (/dev/tty*)
+      "lp"              # Give access to network scanners
     ];
     packages = with pkgs; [
       # Chat

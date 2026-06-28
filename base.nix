@@ -27,7 +27,7 @@
     powerOnBoot = true;
   };
 
-  # Enable printing
+  # Enable document printing
   services.printing = {
     enable = true;
   };
@@ -35,6 +35,11 @@
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
+  };
+
+  # Enable document scanning
+  hardware.sane = {
+    enable = true;
   };
 
   # Set your time zone.
